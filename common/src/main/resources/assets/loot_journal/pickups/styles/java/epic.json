@@ -1,0 +1,38 @@
+{
+  "panel": {
+    "type": "nine_sliced",
+    "texture": "textures/gui/container/inventory.png",
+    "texture_width": 256,
+    "texture_height": 256,
+    "u_offset": 141,
+    "v_offset": 166,
+    "u_width": 24,
+    "v_height": 24,
+    "u_slice": 5,
+    "v_slice": 5
+  },
+  "banner": {
+    "type": "none"
+  },
+  "icon": {
+    "type": "simple",
+    "x_offset": 0,
+    "y_offset": 0,
+    "padding_left": 0,
+    "padding_right": 0,
+    "effect": {
+      "type": "ray_glow",
+      "primary_color": "#FFF00FFF",
+      "secondary_color": "#FFFF5E0F",
+      "scale": 1.0
+    }
+  },
+  "text": {
+    "font": "default",
+    "name_color": "var(name_color)",
+    "pickup_count_color": "var(pickup_count_color)",
+    "total_count_color": "var(total_count_color)",
+    "drop_shadow": true,
+    "ignore_formatting": false
+  }
+}

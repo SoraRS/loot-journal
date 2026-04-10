@@ -1,0 +1,2 @@
+- Fixed an issue where entries with identical items wouldn't merge correctly in some modpacks, causing incorrect total counts due to heavily modified tag behavior
+- Added a **Merge Mode** config option, allowing you to choose the most suitable merging method for your modpack if the default one doesn't work properly

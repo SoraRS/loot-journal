@@ -1,0 +1,24 @@
+{
+  "panel": {
+    "type": "fill",
+    "color": "var(panel_color)"
+  },
+  "banner": {
+    "type": "none"
+  },
+  "icon": {
+    "type": "simple",
+    "x_offset": 0,
+    "y_offset": 0,
+    "padding_left": 0,
+    "padding_right": 0
+  },
+  "text": {
+    "font": "default",
+    "name_color": "var(name_color)",
+    "pickup_count_color": "var(pickup_count_color)",
+    "total_count_color": "var(total_count_color)",
+    "drop_shadow": true,
+    "ignore_formatting": false
+  }
+}

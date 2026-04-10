@@ -1,0 +1,61 @@
+{
+  "display_name": "Classic",
+  "description": "The default style of the mod, combining clarity and subtle visual effects.",
+  "layout": {
+    "screen_margin": 0,
+    "padding_left": 8,
+    "padding_right": 8,
+    "padding_top": -1,
+    "padding_bottom": -1
+  },
+  "bindings": [
+    {
+      "priority": 0,
+      "style": "loot_journal:classic/common",
+      "match": { "always": true }
+    },
+    {
+      "priority": 10,
+      "style": "loot_journal:classic/uncommon",
+      "match": { "rarity": "uncommon" }
+    },
+    {
+      "priority": 20,
+      "style": "loot_journal:classic/rare",
+      "match": { "rarity": "rare" }
+    },
+    {
+      "priority": 30,
+      "style": "loot_journal:classic/epic",
+      "match": { "rarity": "epic" }
+    },
+    {
+      "priority": 40,
+      "style": "loot_journal:classic/xp",
+      "match": { "is_xp": true }
+    }
+  ],
+  "variables": [
+    {
+      "key": "name_color",
+      "display_name": "config.loot_journal.theme.name_color",
+      "description": "config.loot_journal.theme.name_color.desc",
+      "type": "color",
+      "default": "#FFFFFFFF"
+    },
+    {
+      "key": "pickup_count_color",
+      "display_name": "config.loot_journal.theme.pickup_count_color",
+      "description": "config.loot_journal.theme.pickup_count_color.desc",
+      "type": "color",
+      "default": "#FFAAAAAA"
+    },
+    {
+      "key": "total_count_color",
+      "display_name": "config.loot_journal.theme.total_count_color",
+      "description": "config.loot_journal.theme.total_count_color.desc",
+      "type": "color",
+      "default": "#FFAAAAAA"
+    }
+  ]
+}

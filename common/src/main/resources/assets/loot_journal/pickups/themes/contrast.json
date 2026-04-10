@@ -1,0 +1,51 @@
+{
+  "display_name": "High Contrast",
+  "description": "Sharper, more contrasting elements for easy visibility.",
+  "layout": {
+    "screen_margin": 1,
+    "padding_left": 4,
+    "padding_right": 8,
+    "padding_top": 0,
+    "padding_bottom": 0
+  },
+  "bindings": [
+    {
+      "priority": 0,
+      "style": "loot_journal:contrast/default",
+      "match": { "always": true }
+    },
+    {
+      "priority": 10,
+      "style": "loot_journal:contrast/epic",
+      "match": { "rarity": "epic" }
+    },
+    {
+      "priority": 20,
+      "style": "loot_journal:contrast/xp",
+      "match": { "is_xp": true }
+    }
+  ],
+  "variables": [
+    {
+      "key": "name_color",
+      "display_name": "config.loot_journal.theme.name_color",
+      "description": "config.loot_journal.theme.name_color.desc",
+      "type": "color",
+      "default": "#FFFFFFFF"
+    },
+    {
+      "key": "pickup_count_color",
+      "display_name": "config.loot_journal.theme.pickup_count_color",
+      "description": "config.loot_journal.theme.pickup_count_color.desc",
+      "type": "color",
+      "default": "#FFC089FF"
+    },
+    {
+      "key": "total_count_color",
+      "display_name": "config.loot_journal.theme.total_count_color",
+      "description": "config.loot_journal.theme.total_count_color.desc",
+      "type": "color",
+      "default": "#FF00FFE0"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "panel": {
+    "type": "nine_sliced",
+    "texture": "loot_journal:textures/gui/panel_bedrock.png",
+    "texture_width": 16,
+    "texture_height": 16,
+    "u_offset": 0,
+    "v_offset": 0,
+    "u_width": 16,
+    "v_height": 16,
+    "u_slice": 5,
+    "v_slice": 5
+  },
+  "banner": {
+    "type": "none"
+  },
+  "icon": {
+    "type": "simple",
+    "x_offset": 0,
+    "y_offset": 0,
+    "padding_left": 0,
+    "padding_right": 0,
+    "effect": {
+      "type": "ray_glow",
+      "primary_color": "#FFF00FFF",
+      "secondary_color": "#FFFF5E0F",
+      "scale": 1.0
+    }
+  },
+  "text": {
+    "font": "default",
+    "name_color": "var(name_color)",
+    "pickup_count_color": "var(pickup_count_color)",
+    "total_count_color": "var(total_count_color)",
+    "drop_shadow": false,
+    "ignore_formatting": true
+  }
+}
