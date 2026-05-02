@@ -7,22 +7,17 @@ plugins {
 dependencies {
     // Minecraft
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
-    }
+    mappings loom.officialMojangMappings()
     // Dependencies
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation("dev.obscuria:fragmentum-fabric:1.20.1-${fragmentum_version}")
+    modImplementation("dev.obscuria:fragmentum-fabric:1.21.11-${fragmentum_version}")
     modImplementation("dev.isxander:yet-another-config-lib:${yacl_version}+${minecraft_version}-fabric")
-    modImplementation("com.terraformersmc:modmenu:7.2.2")
+    modImplementation("com.terraformersmc:modmenu:17.0.0")
     implementation("com.eliotlash.mclib:mclib:20")
     implementation project(":common")
     // Environment
-    modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:8.0.0")
-    modRuntimeOnly("fuzs.forgeconfigscreens:forgeconfigscreens-fabric:8.0.2")
-    modRuntimeOnly("dev.emi:trinkets:3.7.1")
+    modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:21.11.1")
 }
 
 loom {

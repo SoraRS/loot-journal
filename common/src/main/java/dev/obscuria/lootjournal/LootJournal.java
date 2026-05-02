@@ -17,7 +17,7 @@ public final class LootJournal {
     public static final Logger LOGGER = LoggerFactory.getLogger(DISPLAY_NAME);
 
     public static ResourceLocation identifier(String name) {
-        return new ResourceLocation(MODID, name);
+        return ResourceLocation.fromNamespaceAndPath(MODID, name);
     }
 
     public static boolean isAllowed(Player player, ItemStack stack) {

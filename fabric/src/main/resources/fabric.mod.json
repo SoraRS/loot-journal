@@ -24,14 +24,13 @@
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json",
-    "${mod_id}.fabric.mixins.json"
+    "${mod_id}.mixins.json"
   ],
   "depends": {
-    "java": ">=17",
+    "java": ">=21",
     "minecraft": ">=${minecraft_version}",
     "fragmentum": ">=${fragmentum_version}",
-    "fabricloader": ">=0.14",
+    "fabricloader": ">=0.18",
     "fabric": "*",
     "yet_another_config_lib_v3": ">=${yacl_version}"
   },

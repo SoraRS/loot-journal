@@ -27,4 +27,6 @@ plugins {
 rootProject.name = 'loot-journal'
 include("common")
 include("fabric")
-include("forge")
+if (gradle.startParameter.projectProperties.getOrDefault("enableForge", "false").toBoolean()) {
+    include("forge")
+}
