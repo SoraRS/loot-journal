@@ -3,7 +3,6 @@ package dev.obscuria.lootjournal.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.obscuria.lootjournal.LootJournalHelper;
-import dev.obscuria.lootjournal.client.renderer.PickupComponent;
 import dev.obscuria.lootjournal.config.Config;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;

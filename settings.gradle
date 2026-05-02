@@ -18,6 +18,13 @@ pluginManagement {
             url = "https://raw.githubusercontent.com/ObscuriaLithium/modding/main/maven/"
         }
     }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'fabric-loom') {
+                useModule("net.fabricmc:fabric-loom:${requested.version}")
+            }
+        }
+    }
 }
 
 plugins {
