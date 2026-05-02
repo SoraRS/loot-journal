@@ -8,10 +8,6 @@ legacyForge {
     if (file("src/main/resources/META-INF/accesstransformer.cfg").exists()) {
         accessTransformers = ["src/main/resources/META-INF/accesstransformer.cfg"]
     }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
 }
 
 dependencies {
@@ -20,7 +16,7 @@ dependencies {
     compileOnly("io.github.llamalad7:mixinextras-common:0.5.0")
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0")
     // Dependencies
-    modImplementation("dev.obscuria:fragmentum-api:1.20.1-${fragmentum_version}")
+    modImplementation("dev.obscuria:fragmentum-api:1.21.11-${fragmentum_version}")
     modCompileOnly("dev.isxander:yet-another-config-lib:${yacl_version}+${minecraft_version}-forge")
     implementation("com.eliotlash.mclib:mclib:20")
 }

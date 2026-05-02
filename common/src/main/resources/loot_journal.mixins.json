@@ -3,15 +3,13 @@
   "minVersion": "0.8",
   "package": "dev.obscuria.lootjournal.mixin",
   "refmap": "${mod_id}.refmap.json",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [],
   "client": [
-    "client.MixinClientPacketListener",
-    "client.MixinGameRenderer"
+    "client.MixinClientPacketListener"
   ],
   "server": [],
   "injectors": {
     "defaultRequire": 1
   }
 }
-

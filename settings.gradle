@@ -18,6 +18,13 @@ pluginManagement {
             url = "https://raw.githubusercontent.com/ObscuriaLithium/modding/main/maven/"
         }
     }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'fabric-loom') {
+                useModule("net.fabricmc:fabric-loom:${requested.version}")
+            }
+        }
+    }
 }
 
 plugins {
@@ -27,4 +34,6 @@ plugins {
 rootProject.name = 'loot-journal'
 include("common")
 include("fabric")
-include("forge")
+if (gradle.startParameter.projectProperties.getOrDefault("enableForge", "false").toBoolean()) {
+    include("forge")
+}
