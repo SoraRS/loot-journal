@@ -64,11 +64,11 @@ public final class LootJournalHelper {
         if (player.hasEffect(MobEffects.INVISIBILITY)) return false;
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(Items.CARVED_PUMPKIN)) return false;
         if (!Config.ENABLE_PLAYER_FILTERING.get()) return true;
-        return Config.PLAYER_WHITELIST.get().contains(player.getGameProfile().getName());
+        return Config.PLAYER_WHITELIST.get().contains(player.getGameProfile().name());
     }
 
     public static boolean isSamePlayer(@Nullable Player first, @Nullable Player second) {
         if (first == null || second == null) return false;
-        return first.getGameProfile().getId().equals(second.getGameProfile().getId());
+        return first.getGameProfile().id().equals(second.getGameProfile().id());
     }
 }

@@ -1,37 +1,38 @@
 package dev.obscuria.lootjournal.client;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 
 public enum ItemCountResolver {
 
     SELF {
         @Override
         public int resolve(ItemStack target, ItemStack stack) {
-            return ItemStack.isSameItem(target, stack) ? stack.getCount() : 0;
+            return ItemStack.isSameItemSameComponents(target, stack) ? stack.getCount() : 0;
         }
     },
+
     SHULKER_BOX {
         @Override
         public int resolve(ItemStack target, ItemStack stack) {
-            if (!stack.hasTag()) return 0;
-            if (!stack.getOrCreateTag().contains(TAG_BLOCK, ListTag.TAG_COMPOUND)) return 0;
-            if (!(stack.getOrCreateTag().getCompound(TAG_BLOCK).get(TAG_ITEMS) instanceof ListTag list)) return 0;
-            return resolvePackedList(target, list);
+            return 0;
         }
     },
+
     GENERIC_CONTAINER {
         @Override
         public int resolve(ItemStack target, ItemStack stack) {
-            if (!stack.hasTag()) return 0;
-            if (!(stack.getOrCreateTag().get(TAG_ITEMS) instanceof ListTag list)) return 0;
-            return resolvePackedList(target, list);
+            var contents = stack.get(DataComponents.CONTAINER);
+            if (contents == null || contents == ItemContainerContents.EMPTY) return 0;
+
+            var total = 0;
+            for (var containedStack : contents.nonEmptyItems()) {
+                total += resolveRecursive(target, containedStack);
+            }
+            return total;
         }
     };
-
-    private static final String TAG_BLOCK = "BlockEntityTag";
-    private static final String TAG_ITEMS = "Items";
 
     public abstract int resolve(ItemStack target, ItemStack stack);
 
@@ -39,15 +40,6 @@ public enum ItemCountResolver {
         var total = 0;
         for (var resolver : values()) {
             total += resolver.resolve(target, stack);
-        }
-        return total;
-    }
-
-    private static int resolvePackedList(ItemStack target, ListTag list) {
-        var total = 0;
-        for (var element : list) {
-            if (!(element instanceof CompoundTag packedItem)) continue;
-            total += resolveRecursive(target, ItemStack.of(packedItem));
         }
         return total;
     }

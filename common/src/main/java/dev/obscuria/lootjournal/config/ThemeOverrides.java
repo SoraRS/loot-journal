@@ -1,7 +1,7 @@
 package dev.obscuria.lootjournal.config;
 
 import com.google.gson.*;
-import dev.obscuria.fragmentum.Fragmentum;
+import net.minecraft.client.Minecraft;
 import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.client.themes.Theme;
 import org.jetbrains.annotations.Nullable;
@@ -92,7 +92,8 @@ public final class ThemeOverrides {
     }
 
     private Path getConfigPath(Theme theme) {
-        return Fragmentum.PLATFORM.getConfigDir()
+        return Minecraft.getInstance().gameDirectory.toPath()
+                .resolve("config")
                 .resolve("obscuria")
                 .resolve("loot_journal-themes")
                 .resolve(theme.displayName() + ".json");

@@ -30,21 +30,21 @@
       "key": "name_color",
       "display_name": "config.loot_journal.theme.name_color",
       "description": "config.loot_journal.theme.name_color.desc",
-      "type": "color",
+      "type": "loot_journal:color",
       "default": "#FFFDFDFD"
     },
     {
       "key": "pickup_count_color",
       "display_name": "config.loot_journal.theme.pickup_count_color",
       "description": "config.loot_journal.theme.pickup_count_color.desc",
-      "type": "color",
+      "type": "loot_journal:color",
       "default": "#FF7DCA76"
     },
     {
       "key": "total_count_color",
       "display_name": "config.loot_journal.theme.total_count_color",
       "description": "config.loot_journal.theme.total_count_color.desc",
-      "type": "color",
+      "type": "loot_journal:color",
       "default": "#FFFBCF77"
     }
   ]

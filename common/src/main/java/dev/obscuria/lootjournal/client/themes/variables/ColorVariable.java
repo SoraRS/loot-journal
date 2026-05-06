@@ -1,15 +1,16 @@
 package dev.obscuria.lootjournal.client.themes.variables;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.isxander.yacl3.api.Binding;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.controller.ColorControllerBuilder;
-import dev.obscuria.fragmentum.util.color.ARGB;
-import dev.obscuria.fragmentum.util.color.Colors;
+import dev.obscuria.fragmentum.content.util.color.ARGB;
+import dev.obscuria.fragmentum.content.util.color.Colors;
 import dev.obscuria.lootjournal.client.themes.BakedTheme;
 
-import java.awt.*;
+import java.awt.Color;
 
 public record ColorVariable(
         ARGB defaultValue,
@@ -18,11 +19,15 @@ public record ColorVariable(
         String description
 ) implements Variable<ARGB> {
 
-    public static final Codec<ColorVariable> CODEC;
+    public static final MapCodec<ColorVariable> MAP_CODEC = RecordCodecBuilder.mapCodec(codec -> codec.group(
+            ARGB.CODEC.fieldOf("default").forGetter(ColorVariable::defaultValue)
+    ).and(Variable.baseFields(codec)).apply(codec, ColorVariable::new));
+
+    public static final Codec<ColorVariable> CODEC = MAP_CODEC.codec();
 
     @Override
-    public Codec<ColorVariable> codec() {
-        return CODEC;
+    public MapCodec<? extends Variable<?>> codec() {
+        return MAP_CODEC;
     }
 
     @Override
@@ -50,11 +55,5 @@ public record ColorVariable(
                 color.getRed() / 255f,
                 color.getGreen() / 255f,
                 color.getBlue() / 255f);
-    }
-
-    static {
-        CODEC = RecordCodecBuilder.create(codec -> codec.group(
-                ARGB.CODEC.fieldOf("default").forGetter(ColorVariable::defaultValue)
-        ).and(Variable.baseFields(codec)).apply(codec, ColorVariable::new));
     }
 }

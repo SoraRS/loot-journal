@@ -24,7 +24,7 @@
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json"
+    "loot_journal.fabric.mixins.json"
   ],
   "depends": {
     "java": ">=21",

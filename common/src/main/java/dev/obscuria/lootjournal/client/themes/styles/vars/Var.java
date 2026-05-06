@@ -1,7 +1,7 @@
 package dev.obscuria.lootjournal.client.themes.styles.vars;
 
 import com.mojang.serialization.Codec;
-import dev.obscuria.fragmentum.util.color.ARGB;
+import dev.obscuria.fragmentum.content.util.color.ARGB;
 import dev.obscuria.lootjournal.client.registry.ThemeRegistry;
 
 public interface Var<T> {

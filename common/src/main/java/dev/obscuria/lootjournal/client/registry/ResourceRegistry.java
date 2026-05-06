@@ -3,21 +3,21 @@ package dev.obscuria.lootjournal.client.registry;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.*;
 
 public class ResourceRegistry<T> {
 
     protected final String name;
-    protected final Map<ResourceLocation, T> keyToElement = Maps.newConcurrentMap();
-    protected final Map<T, ResourceLocation> elementToKey = Maps.newConcurrentMap();
+    protected final Map<Identifier, T> keyToElement = Maps.newConcurrentMap();
+    protected final Map<T, Identifier> elementToKey = Maps.newConcurrentMap();
 
     public ResourceRegistry(String name) {
         this.name = name;
     }
 
-    public void register(ResourceLocation key, T element) {
+    public void register(Identifier key, T element) {
         keyToElement.put(key, element);
         elementToKey.put(element, key);
     }
@@ -27,7 +27,7 @@ public class ResourceRegistry<T> {
     }
 
     public Codec<T> byNameCodec() {
-        return ResourceLocation.CODEC.flatXmap(this::tryGetElement, this::tryGetKey);
+        return Identifier.CODEC.flatXmap(this::tryGetElement, this::tryGetKey);
     }
 
     public void onReloadStart() {
@@ -46,13 +46,13 @@ public class ResourceRegistry<T> {
         return "ResourceRegistry[" + name + "]";
     }
 
-    private DataResult<T> tryGetElement(ResourceLocation key) {
+    private DataResult<T> tryGetElement(Identifier key) {
         return Optional.ofNullable(keyToElement.get(key))
                 .map(DataResult::success)
                 .orElseGet(() -> DataResult.error(() -> "Unknown registry key in %s: %s".formatted(toString(), key)));
     }
 
-    private DataResult<ResourceLocation> tryGetKey(T element) {
+    private DataResult<Identifier> tryGetKey(T element) {
         return Optional.ofNullable(elementToKey.get(element))
                 .map(DataResult::success)
                 .orElseGet(() -> DataResult.error(() -> "Unknown registry element in %s: %s".formatted(toString(), element)));

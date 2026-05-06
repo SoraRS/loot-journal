@@ -1,13 +1,14 @@
 package dev.obscuria.lootjournal.client.renderer;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-
+import net.minecraft.core.component.DataComponents;
 import java.util.function.BiPredicate;
 
 public enum MergeMode {
     TYPE_NAMED(MergeMode::isSameItemNamed),
     TYPE(ItemStack::isSameItem),
-    STRICT(ItemStack::isSameItemSameTags),
+    STRICT(ItemStack::isSameItemSameComponents),
     NONE(MergeMode::alwaysFalse);
 
     private final BiPredicate<ItemStack, ItemStack> predicate;
@@ -22,8 +23,8 @@ public enum MergeMode {
 
     private static boolean isSameItemNamed(ItemStack first, ItemStack second) {
         return ItemStack.isSameItem(first, second)
-                && !first.hasCustomHoverName()
-                && !second.hasCustomHoverName();
+                && !first.has(DataComponents.CUSTOM_NAME)
+                && !second.has(DataComponents.CUSTOM_NAME);
     }
 
     private static boolean alwaysFalse(ItemStack first, ItemStack second) {

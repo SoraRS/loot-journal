@@ -1,15 +1,15 @@
 package dev.obscuria.lootjournal.client.themes.variables;
 
+import com.mojang.serialization.MapCodec;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.isxander.yacl3.api.Option;
-import dev.obscuria.fragmentum.registry.BootstrapContext;
+import dev.obscuria.fragmentum.content.registry.BootstrapContext;
 import dev.obscuria.lootjournal.client.registry.LootJournalRegistries;
 import dev.obscuria.lootjournal.client.themes.BakedTheme;
 import dev.obscuria.lootjournal.config.ConfigBuilder;
 import net.minecraft.network.chat.Component;
-
 import java.util.function.Function;
 
 public interface Variable<T> {
@@ -18,7 +18,7 @@ public interface Variable<T> {
             .THEME_VARIABLE_TYPE.byNameCodec()
             .dispatch(Variable::codec, Function.identity());
 
-    Codec<? extends Variable<?>> codec();
+    MapCodec<? extends Variable<?>> codec();
 
     String key();
 
@@ -47,8 +47,8 @@ public interface Variable<T> {
                 .description(ConfigBuilder.Opts.description(Component.translatable(variable.description())));
     }
 
-    static void bootstrap(BootstrapContext<Codec<? extends Variable<?>>> context) {
-        context.register("boolean", () -> BooleanVariable.CODEC);
-        context.register("color", () -> ColorVariable.CODEC);
+    static void bootstrap(BootstrapContext<MapCodec<? extends Variable<?>>> context) {
+        context.register("boolean", () -> BooleanVariable.MAP_CODEC);
+        context.register("color", () -> ColorVariable.MAP_CODEC);
     }
 }

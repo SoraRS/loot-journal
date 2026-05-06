@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
@@ -94,7 +95,7 @@ public final class ItemPickupEvent implements PickupEvent {
     private Style getNameStyle() {
         if (style.text().ignoreFormatting().get()) return Style.EMPTY;
         var nameStyle = stack.getDisplayName().getStyle();
-        return stack.hasCustomHoverName()
+        return stack.has(DataComponents.CUSTOM_NAME)
                 ? nameStyle.withItalic(true)
                 : nameStyle;
     }

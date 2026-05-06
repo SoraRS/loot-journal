@@ -12,7 +12,7 @@ import dev.obscuria.lootjournal.client.themes.BakedTheme;
 import dev.obscuria.lootjournal.client.themes.styles.PickupStyle;
 import dev.obscuria.lootjournal.config.Config;
 import dev.obscuria.lootjournal.config.ConfigCache;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 
@@ -31,7 +31,7 @@ public final class PickupComponent {
     }
 
     public static void render(GuiGraphics graphics) {
-        graphics.pose().pushPose();
+        graphics.pose().pushMatrix();
         ConfigCache.anchor.transform(graphics);
 
         updateLayout();
@@ -46,7 +46,7 @@ public final class PickupComponent {
             }
         }
 
-        graphics.pose().popPose();
+        graphics.pose().popMatrix();
 
         if (queuedPickups.isEmpty() || isAllSlotsOccupied()) return;
 
@@ -194,12 +194,12 @@ public final class PickupComponent {
             updateProgress();
 
             if (!Minecraft.getInstance().options.hideGui) {
-                graphics.pose().pushPose();
-                graphics.pose().translate(0, currentY, 0);
+                graphics.pose().pushMatrix();
+                graphics.pose().translate(0f, currentY);
                 var actualPulse = ConfigCache.pulseEasing.compute((float) pulse) * Config.PULSE_STRENGTH.get().floatValue();
                 var pickupGraphics = new PickupRenderer(this, (float) progress, actualPulse);
                 PickupRenderUtils.render(graphics, pickupGraphics);
-                graphics.pose().popPose();
+                graphics.pose().popMatrix();
             }
 
             return time > getDisplayTime();

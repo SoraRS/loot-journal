@@ -1,7 +1,7 @@
 package dev.obscuria.lootjournal.config;
 
-import dev.obscuria.fragmentum.util.easing.Easing;
-import dev.obscuria.fragmentum.util.easing.EasingFunction;
+import dev.obscuria.fragmentum.content.util.easing.Easing;
+import dev.obscuria.fragmentum.content.util.easing.EasingFunction;
 import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.client.renderer.GrowthDirection;
 import dev.obscuria.lootjournal.client.renderer.ScreenAnchor;
@@ -9,7 +9,7 @@ import dev.obscuria.lootjournal.client.renderer.layout.LayoutParser;
 import dev.obscuria.lootjournal.client.renderer.layout.PickupLayout;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -55,22 +55,24 @@ public final class ConfigCache {
 
         try {
             Config.ITEM_ID_BLACKLIST.get().stream()
-                    .map(ResourceLocation::tryParse)
+                    .map(Identifier::tryParse)
                     .filter(Objects::nonNull)
-                    .map(BuiltInRegistries.ITEM::get)
+                    .flatMap(id -> BuiltInRegistries.ITEM.get(id).stream())
+                    .map(reference -> reference.value())
                     .forEach(itemBlacklist::add);
             Config.ITEM_ID_WHITELIST.get().stream()
-                    .map(ResourceLocation::tryParse)
+                    .map(Identifier::tryParse)
                     .filter(Objects::nonNull)
-                    .map(BuiltInRegistries.ITEM::get)
+                    .flatMap(id -> BuiltInRegistries.ITEM.get(id).stream())
+                    .map(reference -> reference.value())
                     .forEach(itemWhitelist::add);
             Config.ITEM_TAG_BLACKLIST.get().stream()
-                    .map(ResourceLocation::tryParse)
+                    .map(Identifier::tryParse)
                     .filter(Objects::nonNull)
                     .map(it -> TagKey.create(Registries.ITEM, it))
                     .forEach(tagBlacklist::add);
             Config.ITEM_TAG_WHITELIST.get().stream()
-                    .map(ResourceLocation::tryParse)
+                    .map(Identifier::tryParse)
                     .filter(Objects::nonNull)
                     .map(it -> TagKey.create(Registries.ITEM, it))
                     .forEach(tagWhitelist::add);

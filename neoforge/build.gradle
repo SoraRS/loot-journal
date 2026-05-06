@@ -1,0 +1,64 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev'
+    id 'dev.obscuria.hekate'
+}
+
+neoForge {
+    version = neoforge_version
+    validateAccessTransformers = true
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers = [at.getAbsolutePath()]
+    }
+    runs {
+        client {
+            client()
+        }
+        data {
+            data()
+            programArguments.addAll(
+                    '--mod', project.mod_id,
+                    '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
+            )
+        }
+        server {
+            server()
+        }
+    }
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+sourceSets.main.resources.srcDir 'src/generated/resources'
+dependencies {
+    // Mixins
+    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+    compileOnly("io.github.llamalad7:mixinextras-common:0.5.0")
+    annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0")
+
+    // Dependencies
+    implementation("dev.obscuria:fragmentum-neoforge:1.21.11-${fragmentum_version}")
+    implementation("dev.isxander:yet-another-config-lib:${yacl_version}+${minecraft_version}-neoforge")
+
+    implementation project(":common")
+
+    // Environment
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+}
+
+jar {
+    manifest.attributes([
+            "MixinConfigs": "${mod_id}.neoforge.mixins.json"
+    ])
+}
+modrinth {
+    autoAddDependsOn = false
+}
+hekate {
+    metadata = uri(metadata_lookup)
+}

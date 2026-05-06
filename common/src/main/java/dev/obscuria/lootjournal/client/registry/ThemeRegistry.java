@@ -4,15 +4,15 @@ import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.client.themes.BakedTheme;
 import dev.obscuria.lootjournal.client.themes.Theme;
 import dev.obscuria.lootjournal.config.Config;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 public final class ThemeRegistry {
 
-    private static final HashMap<ResourceLocation, BakedTheme> THEMES = new HashMap<>();
-    private static final List<ResourceLocation> BUILTIN_ORDER = List.of(
+    private static final HashMap<Identifier, BakedTheme> THEMES = new HashMap<>();
+    private static final List<Identifier> BUILTIN_ORDER = List.of(
             LootJournal.identifier("classic"),
             LootJournal.identifier("minimal"),
             LootJournal.identifier("tooltip"),
@@ -40,15 +40,15 @@ public final class ThemeRegistry {
         return Stream.concat(builtIn, others);
     }
 
-    public static void add(ResourceLocation id, Theme theme) {
+    public static void add(Identifier id, Theme theme) {
         add(id, theme.bake());
     }
 
-    public static void add(ResourceLocation id, BakedTheme theme) {
+    public static void add(Identifier id, BakedTheme theme) {
         THEMES.put(id, theme);
     }
 
-    public static ResourceLocation getId(BakedTheme theme) {
+    public static Identifier getId(BakedTheme theme) {
         if (theme == BakedTheme.DEFAULT) return LootJournal.identifier("fallback");
         return THEMES.entrySet().stream()
                 .filter(entry -> entry.getValue().equals(theme))

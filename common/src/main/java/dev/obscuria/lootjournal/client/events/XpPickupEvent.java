@@ -1,6 +1,5 @@
 package dev.obscuria.lootjournal.client.events;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.LootJournalHelper;
 import dev.obscuria.lootjournal.client.renderer.PickupRenderer;
@@ -10,12 +9,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public final class XpPickupEvent implements PickupEvent {
 
-    private static final ResourceLocation ICON = LootJournal.identifier("textures/gui/experience.png");
+    private static final Identifier ICON = LootJournal.identifier("textures/gui/experience.png");
     private final AbstractClientPlayer player;
     private PickupStyle style = PickupStyle.DEFAULT;
     private int count;
@@ -33,11 +32,9 @@ public final class XpPickupEvent implements PickupEvent {
     @Override
     public void renderIcon(GuiGraphics graphics, PickupRenderer renderer) {
         graphics.blit(ICON, -8, -8, 0, 0, 16, 16, 16, 32);
-        RenderSystem.enableBlend();
         renderer.pushModulate(0.5f + 0.5f * (float) Math.cos(renderer.timeInSeconds() * 10f));
         graphics.blit(ICON, -8, -8, 0, 16, 16, 16, 16, 32);
         renderer.popModulate();
-        RenderSystem.disableBlend();
     }
 
     @Override

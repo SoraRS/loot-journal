@@ -17,7 +17,7 @@ public record ModMatch(String value) implements ItemStackMatch {
     @Override
     @SuppressWarnings("deprecation")
     public boolean matches(ItemStack stack) {
-        return stack.getItem().builtInRegistryHolder().key().location().getNamespace().equals(value);
+        return stack.getItem().builtInRegistryHolder().key().identifier().getNamespace().equals(value);
     }
 
     static {

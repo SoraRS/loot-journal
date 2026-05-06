@@ -1,27 +1,27 @@
 {
   "panel": {
-    "type": "nine_sliced",
-    "texture": "textures/gui/container/inventory.png",
-    "texture_width": 256,
-    "texture_height": 256,
-    "u_offset": 141,
-    "v_offset": 166,
-    "u_width": 24,
-    "v_height": 24,
+    "type": "loot_journal:nine_sliced",
+    "texture": "minecraft:textures/gui/sprites/gamemode_switcher/slot.png",
+    "texture_width": 26,
+    "texture_height": 26,
+    "u_offset": 0,
+    "v_offset": 0,
+    "u_width": 26,
+    "v_height": 26,
     "u_slice": 5,
     "v_slice": 5
   },
   "banner": {
-    "type": "none"
+    "type": "loot_journal:none"
   },
   "icon": {
-    "type": "simple",
+    "type": "loot_journal:simple",
     "x_offset": 0,
     "y_offset": 0,
     "padding_left": 0,
     "padding_right": 0,
     "effect": {
-      "type": "ray_glow",
+      "type": "loot_journal:ray_glow",
       "primary_color": "#FF0FA000",
       "secondary_color": "#FFA69F01",
       "scale": 0.5

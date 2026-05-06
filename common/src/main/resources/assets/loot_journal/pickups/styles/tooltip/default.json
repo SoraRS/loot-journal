@@ -1,6 +1,6 @@
 {
   "panel": {
-    "type": "nine_sliced",
+    "type": "loot_journal:nine_sliced",
     "texture": "loot_journal:textures/gui/panel_tooltip.png",
     "texture_width": 16,
     "texture_height": 16,
@@ -12,10 +12,10 @@
     "v_slice": 5
   },
   "banner": {
-    "type": "none"
+    "type": "loot_journal:none"
   },
   "icon": {
-    "type": "simple",
+    "type": "loot_journal:simple",
     "x_offset": 0,
     "y_offset": 0,
     "padding_left": 0,

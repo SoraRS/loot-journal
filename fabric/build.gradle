@@ -17,7 +17,7 @@ dependencies {
     implementation("com.eliotlash.mclib:mclib:20")
     implementation project(":common")
     // Environment
-    modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:21.11.1")
+    modRuntimeOnly("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_api_port_version}")
 }
 
 loom {
@@ -25,21 +25,22 @@ loom {
         accessWidenerPath.set(project(":common").file("src/main/resources/${mod_id}.accesswidener"))
     }
     mixin {
+        useLegacyMixinAp.set(true)
         defaultRefmapName.set("${mod_id}.refmap.json")
     }
     runs {
         client {
             client()
             programArgs "--username", "Dev"
-            setConfigName("Fabric Client")
-            ideConfigGenerated(true)
-            runDir("run")
+            configName = "Fabric Client"
+            ideConfigGenerated = true
+            runDir = "run"
         }
         server {
             server()
-            setConfigName("Fabric Server")
-            ideConfigGenerated(true)
-            runDir("run")
+            configName = "Fabric Server"
+            ideConfigGenerated = true
+            runDir = "run"
         }
     }
 }

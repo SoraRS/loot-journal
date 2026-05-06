@@ -2,8 +2,8 @@ package dev.obscuria.lootjournal.client.themes.styles.vars;
 
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
-import dev.obscuria.fragmentum.util.color.ARGB;
-import dev.obscuria.fragmentum.util.color.Colors;
+import dev.obscuria.fragmentum.content.util.color.ARGB;
+import dev.obscuria.fragmentum.content.util.color.Colors;
 import dev.obscuria.lootjournal.client.themes.BakedTheme;
 
 import java.util.Locale;

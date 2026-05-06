@@ -2,12 +2,16 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         maven {
-            name = 'Forge'
-            url = 'https://maven.minecraftforge.net/'
-        }
-        maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
+        }
+        maven {
+            name = 'NeoForge'
+            url = 'https://maven.neoforged.net/'
+        }
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
         }
         maven {
             name = 'Sponge Snapshots'
@@ -34,6 +38,4 @@ plugins {
 rootProject.name = 'loot-journal'
 include("common")
 include("fabric")
-if (gradle.startParameter.projectProperties.getOrDefault("enableForge", "false").toBoolean()) {
-    include("forge")
-}
+include("neoforge")

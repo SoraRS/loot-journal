@@ -48,9 +48,9 @@ public enum ScreenAnchor {
 
     public void transform(GuiGraphics graphics) {
         var window = Minecraft.getInstance().getWindow();
-        graphics.pose().translate(computeX(window), computeY(window), 0);
+        graphics.pose().translate((float) computeX(window), (float) computeY(window));
         var scale = Config.SCALE.get().floatValue();
-        graphics.pose().scale(scale, scale, scale);
+        graphics.pose().scale(scale, scale);
     }
 
     public int computeX(Window window) {

@@ -21,14 +21,19 @@ public record NameToken() implements LayoutToken {
 
     @Override
     public void render(GuiGraphics graphics, PickupRenderer renderer, int x) {
-        var color = renderer.style().text().nameColor().get().toRGB().decimal();
+        var color = renderer.style().text().nameColor().get();
         var text = Component.empty()
                 .append(renderer.event().displayName())
-                .withStyle(Style.EMPTY.withColor(color));
+                .withStyle(Style.EMPTY.withColor(color.toRGB().decimal()));
+
         graphics.drawString(
                 Minecraft.getInstance().font,
-                text, x, 3, 0xFFFFFF,
-                renderer.style().text().dropShadow().get());
+                text,
+                x,
+                3,
+                renderer.modulateColor(color),
+                renderer.style().text().dropShadow().get()
+        );
     }
 
     private static String trimToWidth(Font font, String text, int maxWidth) {
@@ -38,7 +43,6 @@ public record NameToken() implements LayoutToken {
 
         int ellipsisWidth = font.width(ELLIPSIS);
 
-        // если даже "..." не влезает
         if (ellipsisWidth > maxWidth) {
             return "";
         }

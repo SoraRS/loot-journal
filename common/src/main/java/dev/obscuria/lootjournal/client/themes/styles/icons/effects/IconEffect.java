@@ -1,7 +1,8 @@
 package dev.obscuria.lootjournal.client.themes.styles.icons.effects;
 
 import com.mojang.serialization.Codec;
-import dev.obscuria.fragmentum.registry.BootstrapContext;
+import com.mojang.serialization.MapCodec;
+import dev.obscuria.fragmentum.content.registry.BootstrapContext;
 import dev.obscuria.lootjournal.client.registry.LootJournalRegistries;
 import dev.obscuria.lootjournal.client.renderer.PickupRenderer;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,12 +15,12 @@ public interface IconEffect {
             .ICON_EFFECT_TYPE.byNameCodec()
             .dispatch(IconEffect::codec, Function.identity());
 
-    Codec<? extends IconEffect> codec();
+    MapCodec<? extends IconEffect> codec();
 
     void render(GuiGraphics graphics, PickupRenderer pickup);
 
-    static void bootstrap(BootstrapContext<Codec<? extends IconEffect>> context) {
-        context.register("none", () -> NoneEffect.CODEC);
-        context.register("ray_glow", () -> RayGlowEffect.CODEC);
+    static void bootstrap(BootstrapContext<MapCodec<? extends IconEffect>> context) {
+        context.register("none", () -> NoneEffect.MAP_CODEC);
+        context.register("ray_glow", () -> RayGlowEffect.MAP_CODEC);
     }
 }

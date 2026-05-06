@@ -1,7 +1,7 @@
 package dev.obscuria.lootjournal.client.themes;
 
-import dev.obscuria.fragmentum.util.color.ARGB;
-import dev.obscuria.fragmentum.util.color.Colors;
+import dev.obscuria.fragmentum.content.util.color.ARGB;
+import dev.obscuria.fragmentum.content.util.color.Colors;
 import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.client.renderer.PickupRenderUtils;
 import dev.obscuria.lootjournal.client.events.PickupEvent;

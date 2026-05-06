@@ -2,7 +2,7 @@ package dev.obscuria.lootjournal.config;
 
 import dev.obscuria.fragmentum.config.ConfigBuilder;
 import dev.obscuria.fragmentum.config.ConfigValue;
-import dev.obscuria.fragmentum.util.easing.Easing;
+import dev.obscuria.fragmentum.content.util.easing.Easing;
 import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.client.DefaultFilterRule;
 import dev.obscuria.lootjournal.client.renderer.MergeMode;
@@ -131,7 +131,7 @@ public final class Config {
         TRACK_ITEM_PICKUPS = register(builder.defineBoolean("trackItemPickups", false));
         TRACK_XP_PICKUPS = register(builder.defineBoolean("trackXpPickups", false));
         ENABLE_PLAYER_FILTERING = register(builder.defineBoolean("enablePlayerFiltering", false));
-        PLAYER_WHITELIST = register(builder.defineList("playerWhitelist", new ArrayList<>()));
+        PLAYER_WHITELIST = register(builder.defineList("playerWhitelist", new ArrayList<String>(), () -> ""));
 
         ENABLE_SOUNDS = register(builder.defineBoolean("enableSounds", true));
         SOUND_ID = register(builder.defineString("soundId", "minecraft:entity.item.pickup"));
@@ -142,12 +142,12 @@ public final class Config {
         HIDE_YOUR_COMMON_ITEMS = register(builder.defineBoolean("hideYourCommonItems", false));
         HIDE_OTHER_COMMON_ITEMS = register(builder.defineBoolean("hideOtherCommonItems", false));
         DEFAULT_FILTER_RULE = register(builder.DefineEnum("defaultFilterRule", DefaultFilterRule.ALLOW_ALL));
-        ITEM_ID_BLACKLIST = register(builder.defineList("itemIdBlacklist", new ArrayList<>()));
-        ITEM_ID_WHITELIST = register(builder.defineList("itemIdWhitelist", new ArrayList<>()));
-        ITEM_TAG_BLACKLIST = register(builder.defineList("itemTagBlacklist", new ArrayList<>()));
-        ITEM_TAG_WHITELIST = register(builder.defineList("itemTagWhitelist", new ArrayList<>()));
-        MOD_ID_BLACKLIST = register(builder.defineList("modIdBlacklist", new ArrayList<>()));
-        MOD_ID_WHITELIST = register(builder.defineList("modIdWhitelist", new ArrayList<>()));
+        ITEM_ID_BLACKLIST = register(builder.defineList("itemIdBlacklist", new ArrayList<String>(), () -> ""));
+        ITEM_ID_WHITELIST = register(builder.defineList("itemIdWhitelist", new ArrayList<String>(), () -> ""));
+        ITEM_TAG_BLACKLIST = register(builder.defineList("itemTagBlacklist", new ArrayList<String>(), () -> ""));
+        ITEM_TAG_WHITELIST = register(builder.defineList("itemTagWhitelist", new ArrayList<String>(), () -> ""));
+        MOD_ID_BLACKLIST = register(builder.defineList("modIdBlacklist", new ArrayList<String>(), () -> ""));
+        MOD_ID_WHITELIST = register(builder.defineList("modIdWhitelist", new ArrayList<String>(), () -> ""));
 
         builder.buildClient(LootJournal.MODID);
     }

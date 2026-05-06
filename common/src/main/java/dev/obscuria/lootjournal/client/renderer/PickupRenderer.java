@@ -1,15 +1,14 @@
 package dev.obscuria.lootjournal.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import dev.obscuria.fragmentum.util.color.ARGB;
-import dev.obscuria.fragmentum.util.color.Colors;
+import dev.obscuria.fragmentum.content.util.color.ARGB;
+import dev.obscuria.fragmentum.content.util.color.Colors;
 import dev.obscuria.lootjournal.client.events.PickupEvent;
 import dev.obscuria.lootjournal.client.renderer.layout.LayoutResult;
 import dev.obscuria.lootjournal.client.renderer.layout.PickupLayout;
 import dev.obscuria.lootjournal.client.themes.BakedTheme;
 import dev.obscuria.lootjournal.client.themes.styles.PickupStyle;
 import dev.obscuria.lootjournal.config.ConfigCache;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -113,7 +112,6 @@ public final class PickupRenderer {
                 this.modulate.red() * modulate.red(),
                 this.modulate.green() * modulate.green(),
                 this.modulate.blue() * modulate.blue());
-        applyModulate();
     }
 
     public void popModulate() {
@@ -121,14 +119,36 @@ public final class PickupRenderer {
             throw new IllegalStateException("Color stack underflow");
         }
         modulate = colorStack.pop();
-        applyModulate();
+    }
+
+    public int modulatedWhite() {
+        return modulateColor(0xFFFFFFFF);
+    }
+
+    public int modulateColor(ARGB color) {
+        return modulateColor(color.decimal());
+    }
+
+    public int modulateColor(int color) {
+        int a = (color >>> 24) & 0xFF;
+        int r = (color >>> 16) & 0xFF;
+        int g = (color >>> 8) & 0xFF;
+        int b = color & 0xFF;
+
+        int ma = Math.round(a * modulate.alpha());
+        int mr = Math.round(r * modulate.red());
+        int mg = Math.round(g * modulate.green());
+        int mb = Math.round(b * modulate.blue());
+
+        ma = Math.max(0, Math.min(255, ma));
+        mr = Math.max(0, Math.min(255, mr));
+        mg = Math.max(0, Math.min(255, mg));
+        mb = Math.max(0, Math.min(255, mb));
+
+        return (ma << 24) | (mr << 16) | (mg << 8) | mb;
     }
 
     public float timeInSeconds() {
         return (Util.getMillis() - container.startTime) * 0.001f;
-    }
-
-    private void applyModulate() {
-        RenderSystem.setShaderColor(modulate.red(), modulate.green(), modulate.blue(), modulate.alpha());
     }
 }

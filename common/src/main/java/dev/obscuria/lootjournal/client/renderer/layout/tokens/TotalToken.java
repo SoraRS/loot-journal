@@ -28,13 +28,20 @@ public record TotalToken() implements LayoutToken {
     public void render(GuiGraphics graphics, PickupRenderer renderer, int x) {
         if (LootJournalHelper.isSelf(renderer.event().player())) {
             if (!renderer.event().supportsTotalCount()) return;
+
+            var color = renderer.style().text().totalCountColor().get();
+
             graphics.drawString(
                     Minecraft.getInstance().font,
-                    format(renderer.event().total(), renderer.style()), x, 3, 0xFFFFFF,
-                    renderer.style().text().dropShadow().get());
+                    format(renderer.event().total(), renderer.style()),
+                    x,
+                    3,
+                    renderer.modulateColor(color),
+                    renderer.style().text().dropShadow().get()
+            );
         } else {
-            var texture = renderer.event().player().getSkinTextureLocation();
-            PlayerFaceRenderer.draw(graphics, texture, x, 1, 12);
+            var skin = renderer.event().player().getSkin();
+            PlayerFaceRenderer.draw(graphics, skin, x, 1, 12);
         }
     }
 

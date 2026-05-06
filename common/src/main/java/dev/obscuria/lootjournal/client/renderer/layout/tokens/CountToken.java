@@ -25,10 +25,17 @@ public record CountToken() implements LayoutToken {
     public void render(GuiGraphics graphics, PickupRenderer renderer, int x) {
         var count = renderer.event().count();
         if (count == 0) return;
+
+        var color = renderer.style().text().pickupCountColor().get();
+
         graphics.drawString(
                 Minecraft.getInstance().font,
-                format(count, renderer.style()), x, 3, 0xFFFFFF,
-                renderer.style().text().dropShadow().get());
+                format(count, renderer.style()),
+                x,
+                3,
+                renderer.modulateColor(color),
+                renderer.style().text().dropShadow().get()
+        );
     }
 
     @Override

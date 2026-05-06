@@ -3,7 +3,7 @@ package dev.obscuria.lootjournal.client.registry;
 import com.google.gson.JsonParser;
 import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.config.ConfigCache;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -29,11 +29,11 @@ public class PickupResourceManager implements ResourceManagerReloadListener {
         ConfigCache.refresh();
     }
 
-    private boolean isValidResource(ResourceLocation path) {
+    private boolean isValidResource(Identifier path) {
         return path.toString().endsWith(".json");
     }
 
-    private void loadResource(ResourceKind kind, ResourceLocation path, Resource resource) {
+    private void loadResource(ResourceKind kind, Identifier path, Resource resource) {
         try {
             kind.loader.load(extractKey(kind, path), JsonParser.parseReader(resource.openAsReader()));
         } catch (Exception exception) {
@@ -41,7 +41,7 @@ public class PickupResourceManager implements ResourceManagerReloadListener {
         }
     }
 
-    private ResourceLocation extractKey(ResourceKind kind, ResourceLocation path) {
+    private Identifier extractKey(ResourceKind kind, Identifier path) {
         return path.withPath(it -> {
             var result = StringUtils.removeStart(it, kind.loader.resourceDir() + "/");
             result = StringUtils.removeEnd(result, ".json");

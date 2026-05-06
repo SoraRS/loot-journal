@@ -1,6 +1,7 @@
 package dev.obscuria.lootjournal.client.themes.variables;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.isxander.yacl3.api.Binding;
 import dev.isxander.yacl3.api.Option;
@@ -14,11 +15,15 @@ public record BooleanVariable(
         String description
 ) implements Variable<Boolean> {
 
-    public static final Codec<BooleanVariable> CODEC;
+    public static final MapCodec<BooleanVariable> MAP_CODEC = RecordCodecBuilder.mapCodec(codec -> codec.group(
+            Codec.BOOL.fieldOf("default").forGetter(BooleanVariable::defaultValue)
+    ).and(Variable.baseFields(codec)).apply(codec, BooleanVariable::new));
+
+    public static final Codec<BooleanVariable> CODEC = MAP_CODEC.codec();
 
     @Override
-    public Codec<BooleanVariable> codec() {
-        return CODEC;
+    public MapCodec<? extends Variable<?>> codec() {
+        return MAP_CODEC;
     }
 
     @Override
@@ -34,11 +39,5 @@ public record BooleanVariable(
                         value -> theme.overrides.setBoolean(key, value)))
                 .controller(TickBoxControllerBuilder::create)
                 .build();
-    }
-
-    static {
-        CODEC = RecordCodecBuilder.create(codec -> codec.group(
-                Codec.BOOL.fieldOf("default").forGetter(BooleanVariable::defaultValue)
-        ).and(Variable.baseFields(codec)).apply(codec, BooleanVariable::new));
     }
 }

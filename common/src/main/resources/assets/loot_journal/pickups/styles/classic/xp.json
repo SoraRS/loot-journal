@@ -1,6 +1,6 @@
 {
   "panel": {
-    "type": "nine_sliced",
+    "type": "loot_journal:nine_sliced",
     "texture": "loot_journal:textures/gui/panel_classic.png",
     "texture_width": 64,
     "texture_height": 64,
@@ -12,7 +12,7 @@
     "v_slice": 6
   },
   "banner": {
-    "type": "texture",
+    "type": "loot_journal:texture",
     "texture": "loot_journal:textures/gui/panel_classic.png",
     "texture_width": 64,
     "texture_height": 64,
@@ -24,13 +24,13 @@
     "pivot_y": 5
   },
   "icon": {
-    "type": "simple",
+    "type": "loot_journal:simple",
     "x_offset": 0,
     "y_offset": 0,
     "padding_left": 6,
     "padding_right": 0,
     "effect": {
-      "type": "ray_glow",
+      "type": "loot_journal:ray_glow",
       "primary_color": "#FF0FA000",
       "secondary_color": "#FFA69F01",
       "scale": 0.5

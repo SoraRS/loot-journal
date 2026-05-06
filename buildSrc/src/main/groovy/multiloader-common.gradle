@@ -16,6 +16,10 @@ java {
 repositories {
     mavenLocal()
     mavenCentral()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+    }
     // https://docs.gradle.org/current/userguide/declaring_repositories.html#declaring_content_exclusively_found_in_one_repository
     exclusiveContent {
         forRepository {
@@ -40,28 +44,30 @@ repositories {
         filter { includeGroup('org.parchmentmc.data') }
     }
     maven {
-        name = "ObscuriaLocal"
-        url = uri("/Users/obscuria/Modding/maven")
-    }
-    maven {
         name = "Obscuria"
         url = "https://raw.githubusercontent.com/ObscuriaLithium/modding/main/maven/"
     }
     maven {
         name = "CurseMaven"
         url = "https://cursemaven.com"
+        content {
+            includeGroup("curse.maven")
+        }
     }
     maven {
-        name 'Xander Maven'
-        url 'https://maven.isxander.dev/releases'
+        name = 'Xander Maven'
+        url = 'https://maven.isxander.dev/releases'
     }
     maven {
         name = "TerraformersMC"
         url = 'https://maven.terraformersmc.com/releases/'
     }
     maven {
-        name = "Progwml6's maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+    name = 'JEI Maven'
+    url = 'https://dvs1.progwml6.com/files/maven/'
+        content {
+            includeGroup('mezz.jei')
+        }
     }
     maven {
         name = "BlameJared"
@@ -81,7 +87,7 @@ repositories {
     }
     maven {
         name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
         content {
             includeGroupByRegex("software\\.bernie.*")
             includeGroup("com.eliotlash.mclib")
@@ -149,8 +155,9 @@ processResources {
             'mod_id'                    : mod_id,
             'license'                   : license,
             'description'               : project.description,
-            "forge_version"             : forge_version,
-            "forge_loader_version_range": forge_loader_version_range,
+            'neoforge_version'          : neoforge_version,
+            'neoforge_loader_version_range' : neoforge_loader_version_range,
+            'forge_config_api_port_version' : forge_config_api_port_version,
             'credits'                   : credits,
             'java_version'              : java_version,
             'fragmentum_version'        : fragmentum_version,
@@ -167,7 +174,7 @@ processResources {
         key, value -> [(key): value instanceof String ? value.replace("\n", "\\\\n") : value]
     }
 
-    filesMatching(['META-INF/mods.toml']) {
+    filesMatching(['META-INF/mods.toml', 'META-INF/neoforge.mods.toml']) {
         expand expandProps
     }
 
@@ -181,13 +188,22 @@ processResources {
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifactId base.archivesName.get()
+            artifactId = base.archivesName.get()
             from components.java
         }
     }
+
     repositories {
-        maven {
-            url System.getenv('local_maven_url')
+        def localMavenUrl = System.getenv('local_maven_url')
+
+        if (localMavenUrl != null && !localMavenUrl.isBlank()) {
+            maven {
+                url = uri(localMavenUrl)
+            }
         }
     }
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.addStringOption('Xdoclint:none', '-quiet')
 }

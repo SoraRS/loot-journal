@@ -1,19 +1,19 @@
 {
   "panel": {
-    "type": "fill",
+    "type": "loot_journal:fill",
     "color": "var(panel_color)"
   },
   "banner": {
-    "type": "none"
+    "type": "loot_journal:none"
   },
   "icon": {
-    "type": "simple",
+    "type": "loot_journal:simple",
     "x_offset": 0,
     "y_offset": 0,
     "padding_left": 0,
     "padding_right": 0,
     "effect": {
-      "type": "ray_glow",
+      "type": "loot_journal:ray_glow",
       "primary_color": "#FF0FA000",
       "secondary_color": "#FFA69F01",
       "scale": 0.5

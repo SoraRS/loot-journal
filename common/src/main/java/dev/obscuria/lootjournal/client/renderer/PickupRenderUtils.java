@@ -1,6 +1,5 @@
 package dev.obscuria.lootjournal.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.obscuria.lootjournal.config.ConfigCache;
 import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.Nullable;
@@ -11,24 +10,22 @@ public final class PickupRenderUtils {
 
     public static void render(GuiGraphics graphics, PickupRenderer renderer) {
 
-        RenderSystem.enableBlend();
         renderer.pushModulate(renderer.progress());
 
-        graphics.pose().pushPose();
-        graphics.pose().translate(renderer.originOffset(), 0, 80);
+        graphics.pose().pushMatrix();
+        graphics.pose().translate((float) renderer.originOffset(), 0f);
         renderer.style().panel().render(graphics, renderer);
-        graphics.pose().translate(renderer.paddingEdge(), renderer.paddingTop(), 0);
+        graphics.pose().translate((float) renderer.paddingEdge(), (float) renderer.paddingTop());
         @Nullable var iconPosition = renderer.layout().findFirst("ICON");
         if (iconPosition != null) {
-            graphics.pose().pushPose();
-            graphics.pose().translate(iconPosition.centerX(), PICKUP_HEIGHT * 0.5, 0);
+            graphics.pose().pushMatrix();
+            graphics.pose().translate((float) iconPosition.centerX(), (float) (PICKUP_HEIGHT * 0.5));
             renderer.style().banner().render(graphics, renderer);
-            graphics.pose().popPose();
+            graphics.pose().popMatrix();
         }
         ConfigCache.layout.render(graphics, renderer);
-        graphics.pose().popPose();
+        graphics.pose().popMatrix();
 
         renderer.popModulate();
-        RenderSystem.disableBlend();
     }
 }

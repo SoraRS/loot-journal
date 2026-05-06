@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "dev.obscuria.lootjournal.neoforge.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [],
+    "client": [
+        "client.MixinNeoForgeClientPacketListener"
+    ],
+    "server": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

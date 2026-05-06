@@ -1,18 +1,52 @@
 package dev.obscuria.lootjournal.client.themes.match;
 
 import com.mojang.serialization.Codec;
-import dev.obscuria.fragmentum.registry.BootstrapContext;
+import com.mojang.serialization.DataResult;
+import dev.obscuria.fragmentum.content.registry.BootstrapContext;
+import dev.obscuria.lootjournal.LootJournal;
 import dev.obscuria.lootjournal.client.events.PickupEvent;
 import dev.obscuria.lootjournal.client.registry.LootJournalRegistries;
 import dev.obscuria.lootjournal.client.registry.SmartDispatchCodec;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.Function;
 
 public interface PickupMatch {
 
+    Codec<Codec<? extends PickupMatch>> TYPE_CODEC = Codec.STRING.comapFlatMap(name -> {
+        var id = Identifier.tryParse(name);
+
+        if (id == null) {
+            return DataResult.error(() -> "Invalid pickup match type: " + name);
+        }
+
+        /*
+         * Loot Journal's bundled theme JSON uses compact Fragmentum-style match syntax:
+         *
+         *   "match": { "always": true }
+         *   "match": { "rarity": "rare" }
+         *   "match": { "is_xp": true }
+         *
+         * In modern Minecraft, bare identifiers are decoded as minecraft:*.
+         * These match types are registered under loot_journal:*, so bare keys need to
+         * resolve to the Loot Journal namespace for backwards-compatible resource data.
+         */
+        if ("minecraft".equals(id.getNamespace())) {
+            id = LootJournal.identifier(id.getPath());
+        }
+
+        var resolvedId = id;
+
+        return LootJournalRegistries.PICKUP_MATCH_TYPE.get(resolvedId)
+                .map(reference -> DataResult.success(reference.value()))
+                .orElseGet(() -> DataResult.error(() -> "Unknown pickup match type: " + resolvedId));
+    }, codec -> "unknown");
+
     Codec<PickupMatch> CODEC = SmartDispatchCodec.create(
-            LootJournalRegistries.PICKUP_MATCH_TYPE.byNameCodec(),
-            PickupMatch::codec, Function.identity());
+            TYPE_CODEC,
+            PickupMatch::codec,
+            Function.identity()
+    );
 
     Codec<? extends PickupMatch> codec();
 

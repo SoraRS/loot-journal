@@ -28,12 +28,12 @@ public record IconToken() implements LayoutToken {
         var pivotX = x + padding + ICON_SIZE * 0.5;
         var pivotY = PickupRenderUtils.PICKUP_HEIGHT * 0.5;
 
-        graphics.pose().pushPose();
-        graphics.pose().translate(pivotX, pivotY, 0);
-        graphics.pose().translate(0, -4 * renderer.pulse(), 0);
-        graphics.pose().scale(scale, scale, 1);
+        graphics.pose().pushMatrix();
+        graphics.pose().translate((float) pivotX, (float) pivotY);
+        graphics.pose().translate(0f, (float) (-4 * renderer.pulse()));
+        graphics.pose().scale(scale, scale);
         renderer.style().icon().render(graphics, renderer);
-        graphics.pose().popPose();
+        graphics.pose().popMatrix();
     }
 
     @Override
